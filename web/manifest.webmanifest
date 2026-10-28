@@ -1,0 +1,25 @@
+{
+  "name": "SOMBRA 3D STUDIO",
+  "short_name": "SOMBRA",
+  "description": "Seu laboratório criativo de modelos 3D.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/sombra-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/sombra-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

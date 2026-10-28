@@ -1,0 +1,6 @@
+{
+  "appId": "com.sombra.studio",
+  "appName": "SOMBRA 3D STUDIO",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
