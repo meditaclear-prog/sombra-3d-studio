@@ -24,6 +24,7 @@ main{padding:28px clamp(18px,3.5vw,48px);max-width:1600px;width:100%;margin:auto
  <div><div class="nav-label">ESPAÇO DE TRABALHO</div><nav class="nav">
  <button class="active" data-view="home"><span class="ico">⌂</span> Visão geral</button>
  <button data-view="payments"><span class="ico">▦</span> Pagamentos Pix</button>
+ <button data-view="plans"><span class="ico">✦</span> Planos e Assinatura</button>
  <button data-view="downloads"><span class="ico">⇩</span> Downloads</button>
  <button data-view="library"><span class="ico">▦</span> Minha biblioteca</button>
  </nav></div>
@@ -91,6 +92,80 @@ main{padding:28px clamp(18px,3.5vw,48px);max-width:1600px;width:100%;margin:auto
  </div><div class="card" id="optResult" style="margin-top:16px">Selecione um arquivo para começar.</div><div class="notice">Validação e informações básicas funcionam localmente nesta demonstração. Otimização real requer um processador 3D integrado.</div></section>
 
 <section class="view" id="view-organize"><h2 class="panel-title">Organizar arquivos</h2><p class="panel-sub">Classifique seus arquivos e mantenha um catálogo consistente.</p><div class="card"><div class="section-head"><div><h2>Importar e catalogar</h2><p>Adicione modelos, imagens de referência ou pacotes locais.</p></div></div><button class="primary" id="organizePick">＋ Escolher arquivos</button><div class="notice">A biblioteca desta versão guarda metadados no navegador. Os arquivos originais não são enviados para um servidor.</div><div id="organizeSummary" style="margin-top:16px;color:var(--muted)">Nenhum arquivo catalogado.</div></div></section>
+
+<section class="view" id="view-plans">
+ <h2 class="panel-title">Planos e Assinatura</h2>
+ <p class="panel-sub">Escolha os recursos do SOMBRA 3D STUDIO que combinam com o teu trabalho.</p>
+
+ <div class="notice" style="margin-bottom:18px">
+   Os planos pagos serão ativados após a confirmação do recebimento. Nesta versão, a verificação é manual.
+ </div>
+
+ <div class="grid tool-grid" style="align-items:stretch">
+  <article class="card tool-card">
+   <div class="qico">🌱</div>
+   <h3>Basic Free</h3>
+   <p>Para começar a organizar os teus ativos 3D.</p>
+   <div class="stat-num">Grátis</div>
+   <ul style="padding-left:19px;color:var(--muted);font-size:12px;line-height:2">
+    <li>Biblioteca local</li>
+    <li>Ferramentas disponíveis na versão gratuita</li>
+    <li>Com anúncios</li>
+   </ul>
+   <button class="secondary plan-select" data-plan="free" style="width:100%">Usar plano gratuito</button>
+  </article>
+
+  <article class="card tool-card" style="border-color:#7160bd">
+   <div class="qico">✦</div>
+   <h3>Basic Pro</h3>
+   <p>Para quem quer trabalhar sem anúncios.</p>
+   <div class="stat-num">R$ 14,90<small style="font-size:12px;color:var(--muted);font-weight:500">/mês</small></div>
+   <ul style="padding-left:19px;color:var(--muted);font-size:12px;line-height:2">
+    <li>Experiência sem anúncios</li>
+    <li>Plano individual</li>
+    <li>Pagamento Pix</li>
+   </ul>
+   <button class="primary plan-select" data-plan="pro" style="width:100%">Escolher Basic Pro</button>
+  </article>
+
+  <article class="card tool-card">
+   <div class="qico">🎨</div>
+   <h3>Creator</h3>
+   <p>Para criadores que usam o estúdio com frequência.</p>
+   <div class="stat-num">R$ 29,90<small style="font-size:12px;color:var(--muted);font-weight:500">/mês</small></div>
+   <ul style="padding-left:19px;color:var(--muted);font-size:12px;line-height:2">
+    <li>Experiência sem anúncios</li>
+    <li>Plano para criação de ativos</li>
+    <li>Pagamento Pix</li>
+   </ul>
+   <button class="primary plan-select" data-plan="creator" style="width:100%">Escolher Creator</button>
+  </article>
+
+  <article class="card tool-card">
+   <div class="qico">🚀</div>
+   <h3>Studio</h3>
+   <p>Para quem quer a opção mais completa dos planos.</p>
+   <div class="stat-num">R$ 59,90<small style="font-size:12px;color:var(--muted);font-weight:500">/mês</small></div>
+   <ul style="padding-left:19px;color:var(--muted);font-size:12px;line-height:2">
+    <li>Experiência sem anúncios</li>
+    <li>Plano Studio</li>
+    <li>Pagamento Pix</li>
+   </ul>
+   <button class="primary plan-select" data-plan="studio" style="width:100%">Escolher Studio</button>
+  </article>
+ </div>
+
+ <div class="card" id="planCheckout" style="margin-top:18px">
+  <h2 style="font-size:17px;margin-top:0">Pagamento do plano</h2>
+  <p style="color:var(--muted);font-size:13px">Seleciona um plano pago para ver as instruções de pagamento.</p>
+  <div id="planCheckoutContent" class="empty">Nenhum plano pago selecionado.</div>
+ </div>
+
+ <div class="notice">
+  Os preços apresentados são mensais, mas o Pix desta versão é um pagamento iniciado manualmente, não uma cobrança recorrente automática. Confirme o crédito na conta antes de ativar um plano. A ativação segura entre dispositivos será implementada com um servidor.
+ </div>
+</section>
+
 <section class="view" id="view-payments"><h2 class="panel-title">Pagamentos Pix</h2><p class="panel-sub">Gere uma cobrança Pix para receber diretamente na tua conta Nubank. Sem Mercado Pago.</p>
 <div class="grid layout-main"><div class="card"><div class="section-head"><div><h2>Configurar recebimento</h2><p>Esses dados ficam salvos apenas neste dispositivo.</p></div></div>
 <label for="pixKey" style="display:block;font-size:12px;color:var(--muted);margin:12px 0 6px">Tua chave Pix do Nubank</label><input id="pixKey" autocomplete="off" placeholder="CPF, e-mail, telefone ou chave aleatória" style="width:100%;background:#151a24;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px">
@@ -111,7 +186,7 @@ main{padding:28px clamp(18px,3.5vw,48px);max-width:1600px;width:100%;margin:auto
 <script type="module">
 import QRCode from "qrcode";
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-const views={home:["Bem-vindo ao Sombra.","Seus modelos 3D, downloads e ferramentas em um só lugar."],downloads:["Downloads","Busque e baixe arquivos 3D de fontes autorizadas."],library:["Minha biblioteca","Sua coleção local de modelos e ativos 3D."],convert:["Converter formatos","Prepare arquivos para converter entre formatos."],image3d:["Imagem → 3D","Transforme referências visuais em ativos 3D."],optimize:["Otimizar modelo","Valide e prepare seus modelos para o próximo passo."],organize:["Organizar arquivos","Mantenha sua coleção de modelos organizada."],payments:["Pagamentos Pix","Receba diretamente no Nubank e confira os pagamentos manualmente."]};
+const views={home:["Bem-vindo ao Sombra.","Seus modelos 3D, downloads e ferramentas em um só lugar."],downloads:["Downloads","Busque e baixe arquivos 3D de fontes autorizadas."],library:["Minha biblioteca","Sua coleção local de modelos e ativos 3D."],convert:["Converter formatos","Prepare arquivos para converter entre formatos."],image3d:["Imagem → 3D","Transforme referências visuais em ativos 3D."],optimize:["Otimizar modelo","Valide e prepare seus modelos para o próximo passo."],organize:["Organizar arquivos","Mantenha sua coleção de modelos organizada."],payments:["Pagamentos Pix","Receba diretamente no Nubank e confira os pagamentos manualmente."],plans:["Planos e Assinatura","Escolha o plano ideal para criar e organizar seus ativos 3D."]};
 let files=[],selectedFile=null,downloadCount=0;
 const fmt=n=>{if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(2)+" MB"};
 const ext=n=>(n.split(".").pop()||"").toUpperCase();
@@ -139,7 +214,77 @@ $("#imagePick").onclick=()=>$("#imageInput").click();$("#imageInput").onchange=e
 $("#imageGenerate").onclick=()=>toast("A geração 3D ainda precisa de integração com um serviço de IA.");
 $("#downloadForm").onsubmit=async e=>{e.preventDefault();const url=$("#downloadUrl").value.trim();let name=$("#downloadName").value.trim();let row={url,name:name||url.split("/").pop().split("?")[0]||"modelo-3d",status:"Preparando"};const q=$("#downloadQueue");if(q.querySelector(".empty"))q.innerHTML="";const el=document.createElement("div");el.className="activity-item";el.innerHTML=`<div class="file-icon">URL</div><div class="file-info"><b>${escapeHtml(row.name)}</b><small>${escapeHtml(url)}</small></div><span class="badge wait">Iniciando</span>`;q.prepend(el);try{let a=document.createElement("a");a.href=url;a.download=row.name;a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();downloadCount++;$("#statDownloads").textContent=downloadCount;el.querySelector(".badge").textContent="Solicitado";el.querySelector(".badge").className="badge wait";toast("Solicitação enviada ao navegador. Verifique se o download começou.");}catch(err){el.querySelector(".badge").textContent="Falhou";toast("Não foi possível iniciar o download por esta URL.")}};
 $("#imageInput").onchange=$("#imageInput").onchange;
+
 render();
+
+// Seleção de planos e checkout Pix.
+// Os códigos são os fornecidos pelo proprietário e ainda devem ser validados
+// antes de disponibilizar os pagamentos publicamente.
+const planCatalog = {
+ pro: {
+  name: "Basic Pro",
+  amount: "14.90",
+  pix: "00020126580014BR.GOV.BCB.PIX013675d72b2f-e598-46ea-a45c-27beb20c613d520400005303986540514.905802BR5925Joao Luis Dachi de Almeid6009SAO PAULO621405102U1enMmzIt6304DAED"
+ },
+ creator: {
+  name: "Creator",
+  amount: "29.90",
+  pix: "00020126580014BR.GOV.BCB.PIX013675d72b2f-e598-46ea-a45c-27beb20c613d520400005303986540529.905802BR5925Joao Luis Dachi de Almeid6009SAO PAULO62140510qwzWN25N7e63049324"
+ },
+ studio: {
+  name: "Studio",
+  amount: "59.90",
+  pix: "00020126580014BR.GOV.BCB.PIX013675d72b2f-e598-46ea-a45c-27beb20c613d520400005303986540559.905802BR5925Joao Luis Dachi de Almeid6009SAO PAULO62140510n7n1KbP6nR63040798"
+ }
+};
+
+$$(".plan-select").forEach(button => {
+ button.addEventListener("click", async () => {
+  const planId = button.dataset.plan;
+  const checkout = $("#planCheckoutContent");
+
+  if (planId === "free") {
+   checkout.innerHTML =
+    '<div class="notice">O plano Basic Free está selecionado. Ele inclui anúncios quando a integração de anúncios estiver ativa. A seleção não altera nem confirma pagamentos.</div>';
+   $("#planCheckout").scrollIntoView({behavior:"smooth", block:"start"});
+   toast("Plano gratuito selecionado.");
+   return;
+  }
+
+  const plan = planCatalog[planId];
+  if (!plan) return;
+
+  checkout.innerHTML = `
+   <div style="text-align:center">
+    <div class="stat-num">${plan.name}</div>
+    <p style="font-size:22px;font-weight:800">R$ ${Number(plan.amount).toLocaleString("pt-BR",{minimumFractionDigits:2})}<span style="font-size:12px;color:var(--muted);font-weight:500">/mês</span></p>
+    <p style="font-size:12px;color:var(--muted)">Pix Copia e Cola com valor definido. Confere o nome e o valor no aplicativo do teu banco antes de pagar.</p>
+    <textarea id="planPixCode" readonly rows="5" style="width:100%;box-sizing:border-box;background:#0d1017;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;overflow-wrap:anywhere">${plan.pix}</textarea>
+    <button class="primary" id="copyPlanPix" style="width:100%;margin-top:10px">Copiar código Pix</button>
+    <div class="notice" style="text-align:left">
+     Depois de pagar, aguarda a conferência manual do recebimento. Não envies senhas nem códigos de acesso bancário. Este botão não confirma o pagamento nem ativa o plano.
+    </div>
+   </div>`;
+
+  $("#planCheckout").scrollIntoView({behavior:"smooth", block:"start"});
+  $("#copyPlanPix").onclick = async () => {
+   const field = $("#planPixCode");
+   try {
+    await navigator.clipboard.writeText(plan.pix);
+    toast("Código Pix copiado.");
+   } catch {
+    field.focus();
+    field.select();
+    try {
+     document.execCommand("copy");
+     toast("Se não copiou, usa a opção Copiar do aparelho.");
+    } catch {
+     toast("Seleciona o código e copia manualmente.");
+    }
+   }
+  };
+ });
+});
 
 // Pix BR Code (cobrança estática com valor) e QR local. Não confirma pagamentos no banco.
 const PIX_SETTINGS_KEY="sombra.pix.settings.v1", PIX_CHARGES_KEY="sombra.pix.charges.v1";
