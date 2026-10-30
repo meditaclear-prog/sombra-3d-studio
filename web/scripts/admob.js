@@ -1,5 +1,5 @@
-const TEST_BANNER_ID = 'ca-app-pub-3940256099942544/6300978111';
-const TEST_REWARDED_ID = 'ca-app-pub-3940256099942544/5224354917';
+const BANNER_ID = 'ca-app-pub-8969153075102144/7465628216';
+const REWARDED_ID = 'ca-app-pub-8969153075102144/9580655667';
 
 let initialized = false;
 let bannerVisible = false;
@@ -7,7 +7,7 @@ let rewardedReady = false;
 let rewardedBusy = false;
 
 function isNativeAndroid() {
-  return (
+  return Boolean(
     window.Capacitor &&
     window.Capacitor.isNativePlatform() &&
     window.Capacitor.getPlatform() === 'android'
@@ -19,18 +19,20 @@ export async function initializeAdMob() {
     return { available: false, reason: 'not-android' };
   }
 
+  if (initialized) {
+    return { available: true };
+  }
+
   try {
     const { AdMob } = await import('@capacitor-community/admob');
 
-    await AdMob.initialize({
-      initializeForTesting: true
-    });
+    // Produção: não ativar initializeForTesting.
+    await AdMob.initialize();
 
     initialized = true;
-
     return { available: true };
   } catch (error) {
-    console.error('Falha ao inicializar o AdMob:', error);
+    console.error('Falha ao inicializar AdMob:', error);
     return { available: false, reason: 'initialization-failed' };
   }
 }
@@ -40,12 +42,9 @@ export async function showTestBanner() {
     return { success: false, reason: 'not-android' };
   }
 
-  if (!initialized) {
-    const result = await initializeAdMob();
-
-    if (!result.available) {
-      return { success: false, reason: result.reason };
-    }
+  const init = await initializeAdMob();
+  if (!init.available) {
+    return { success: false, reason: init.reason };
   }
 
   try {
@@ -53,26 +52,22 @@ export async function showTestBanner() {
       await import('@capacitor-community/admob');
 
     await AdMob.showBanner({
-      adId: TEST_BANNER_ID,
+      adId: BANNER_ID,
       adSize: BannerAdSize.ADAPTIVE_BANNER,
       position: BannerAdPosition.BOTTOM_CENTER,
-      margin: 0,
-      isTesting: true
+      margin: 0
     });
 
     bannerVisible = true;
-
     return { success: true };
   } catch (error) {
-    console.error('Falha ao exibir banner de teste:', error);
+    console.error('Falha ao exibir banner:', error);
     return { success: false, reason: 'banner-failed' };
   }
 }
 
 export async function hideTestBanner() {
-  if (!isNativeAndroid() || !bannerVisible) {
-    return;
-  }
+  if (!isNativeAndroid() || !bannerVisible) return;
 
   try {
     const { AdMob } = await import('@capacitor-community/admob');
@@ -88,36 +83,34 @@ export async function prepareTestRewardedAd() {
     return { success: false, reason: 'unavailable' };
   }
 
-  if (!initialized) {
-    const result = await initializeAdMob();
-
-    if (!result.available) {
-      return { success: false, reason: result.reason };
-    }
+  const init = await initializeAdMob();
+  if (!init.available) {
+    return { success: false, reason: init.reason };
   }
 
   try {
     const { AdMob } = await import('@capacitor-community/admob');
 
     await AdMob.prepareRewardVideoAd({
-      adId: TEST_REWARDED_ID,
-      isTesting: true
+      adId: REWARDED_ID
     });
 
     rewardedReady = true;
-
     return { success: true };
   } catch (error) {
     rewardedReady = false;
-    console.error('Falha ao preparar anúncio recompensado:', error);
-
+    console.error('Falha ao carregar anúncio premiado:', error);
     return { success: false, reason: 'rewarded-load-failed' };
   }
 }
 
 export async function showTestRewardedAd() {
   if (!isNativeAndroid() || !rewardedReady || rewardedBusy) {
-    return { success: false, rewarded: false, reason: 'not-ready' };
+    return {
+      success: false,
+      rewarded: false,
+      reason: 'not-ready'
+    };
   }
 
   rewardedBusy = true;
@@ -126,15 +119,25 @@ export async function showTestRewardedAd() {
   try {
     const { AdMob } = await import('@capacitor-community/admob');
 
-    const result = await AdMob.showRewardVideoAd();
+    // A promessa só é considerada concluída quando o plugin
+    // retorna o item de recompensa conquistado.
+    const reward = await AdMob.showRewardVideoAd();
+
+    if (!reward || !Number.isFinite(reward.amount) || reward.amount <= 0) {
+      return {
+        success: false,
+        rewarded: false,
+        reason: 'reward-not-confirmed'
+      };
+    }
 
     return {
       success: true,
       rewarded: true,
-      reward: result
+      reward
     };
   } catch (error) {
-    console.error('Anúncio recompensado não concluído:', error);
+    console.error('Anúncio premiado não concluído:', error);
 
     return {
       success: false,

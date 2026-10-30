@@ -34,7 +34,7 @@ function createTestPanel() {
     <div class="section-head">
       <div>
         <h2>Publicidade do SOMBRA</h2>
-        <p>Área técnica para testar anúncios no Android.</p>
+        <p>Publicidade do SOMBRA 3D STUDIO para Android.</p>
       </div>
       <span class="stat-icon">▣</span>
     </div>
@@ -46,16 +46,16 @@ function createTestPanel() {
 
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="secondary" id="admobBannerBtn">
-        Mostrar banner de teste
+        Mostrar banner
       </button>
       <button class="secondary" id="admobHideBannerBtn">
         Ocultar banner
       </button>
       <button class="secondary" id="admobPrepareRewardBtn">
-        Carregar vídeo de teste
+        Carregar anúncio recompensado
       </button>
       <button class="primary" id="admobShowRewardBtn">
-        Assistir vídeo de teste
+        Assistir anúncio recompensado
       </button>
     </div>
 
@@ -83,7 +83,7 @@ function createTestPanel() {
     showStatus('Carregando vídeo recompensado de teste...');
     const result = await prepareTestRewardedAd();
     showStatus(result.success
-      ? 'Vídeo carregado. Toque em Assistir vídeo de teste.'
+      ? 'Vídeo carregado. Toque em Assistir anúncio recompensado.'
       : 'Vídeo indisponível. Tente novamente mais tarde.');
   };
 
