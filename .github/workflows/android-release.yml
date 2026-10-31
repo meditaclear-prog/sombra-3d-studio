@@ -96,6 +96,23 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: ./gradlew assembleRelease
 
+      - name: Verify APK signature
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          test -n "$APKSIGNER"
+          test -s "$APK"
+
+          echo "=== Verificando assinatura do APK ==="
+          "$APKSIGNER" verify --verbose --print-certs "$APK"
+
+          echo "=== Certificado da chave permanente ==="
+          keytool -list -v             -keystore android/app/sombra-release.jks             -storepass "$ANDROID_KEYSTORE_PASSWORD"             -alias "$ANDROID_KEY_ALIAS" | grep -E "Alias name:|SHA256:"
+
       - name: Upload signed APK
         uses: actions/upload-artifact@v4
         with:
